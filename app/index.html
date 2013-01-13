@@ -1,27 +1,47 @@
 <!doctype html>
-<html>
+<html ng-app="" ng-csp>
   <head>
     <meta charset="utf-8">
     <title>8tracks controller</title>
     <link href="styles/bootstrap.min.css" rel="stylesheet">
     <link href="styles/bootstrap-responsive.css" rel="stylesheet">
-
-    <!-- build:css styles/app.css -->
     <link href="styles/main.css" rel="stylesheet">
-    <!-- endbuild -->
+
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/mixes.js"></script>
+    <!-- <script src="scripts/main.js"></script> -->
   </head>
   <body>
 
-    <div class="container-fluid">
-      <div class="row-fluid">
+    <h2>Mixes <small>8tracks controller</small></h2>
+    <div ng-controller="mixesCtrl">
+       <form ng-submit="queryMixes()">
+        <input class="btn-primary" type="submit">
+      </form>
+
+      <div class="fluid-row" ng-repeat="mix in mixes">
         <div class="span12">
-          <h2>8tracks controller</h2>
+
+          <div class="media well well-small tab-{mix.tabId}">
+            <img class="media-object pull-left img-rounded" style="height: 128px; width: 128px;" ng-src="{{mix.imageSrc}}">
+            <div class="media-body">
+              <h3 class="media-heading">{{mix.title}}</h3>
+              <button class="btn btn-primary play-btn" ng-data-tab-id="{mix.tabId}">
+                <i class="icon-play icon-white"></i> Play
+              </button>
+              <button class="btn btn-primary pause-btn" ng-data-tab-id="{mix.tabId}">
+                <i class="icon-pause icon-white"></i> Pause
+              </button>
+              <button class="btn next-track-btn" ng-data-tab-id="{mix.tabId}">
+                <i class="icon-fast-forward icon-white"></i> Next track
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
-      <div id="placeholder"></div>
     </div>
 
-    <script src="scripts/jquery.min.js"></script>
-    <script src="scripts/main.js"></script>
   </body>
 </html>

@@ -19,7 +19,7 @@
   "content_scripts": [
     {
       "js": [
-        "scripts/main.js"
+        "scripts/mixes.js"
       ],
       "matches": [
         "http://8tracks.com/*"
