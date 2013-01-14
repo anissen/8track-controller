@@ -16,9 +16,6 @@
 
     <h2>Mixes <small>8tracks controller</small></h2>
     <div ng-controller="mixesCtrl">
-       <form ng-submit="queryMixes()">
-        <input class="btn-primary" type="submit">
-      </form>
 
       <div class="fluid-row" ng-repeat="mix in mixes">
         <div class="span12">
@@ -33,7 +30,7 @@
               <button class="btn btn-primary pause-btn" ng-data-tab-id="{mix.tabId}">
                 <i class="icon-pause icon-white"></i> Pause
               </button>
-              <button class="btn next-track-btn" ng-data-tab-id="{mix.tabId}">
+              <button class="btn next-track-btn" ng-click="nextTrack(mix)" >
                 <i class="icon-fast-forward icon-white"></i> Next track
               </button>
             </div>
