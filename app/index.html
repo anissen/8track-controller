@@ -13,12 +13,12 @@
   </head>
   <body>
 
-    <h2>Mixes <small>8tracks controller</small></h2>
     <div ng-controller="mixesCtrl">
+      <h2>Mixes <small>8tracks controller</small><input ng-show="mixes.length > 1" ng-model="filterText" placeholder="Filter mixes" class="input-medium search-query filter-box pull-right"></h2>
 
       <div ng-show="!mixes.length" class="alert alert-info">No 8tracks mixes open in tabs. <a href="http://8tracks.com" target="_blank" style="color: darkblue;">Open 8tracks</a></div>
 
-      <div class="fluid-row" ng-repeat="mix in mixes | orderBy: 'state'">
+      <div class="fluid-row" ng-repeat="mix in mixes | filter:filterText | orderBy:'state'">
         <div class="span12">
 
           <div class="media well well-small mix-{{mix.state | lowercase}}">
