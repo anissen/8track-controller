@@ -16,7 +16,7 @@
     <h2>Mixes <small>8tracks controller</small></h2>
     <div ng-controller="mixesCtrl">
 
-      <div ng-show="!mixes.length" class="alert alert-info">No 8tracks mixes open in tabs. <a href="http://8tracks.com" style="color: darkblue;">Open 8tracks</a></div>
+      <div ng-show="!mixes.length" class="alert alert-info">No 8tracks mixes open in tabs. <a href="http://8tracks.com" target="_blank" style="color: darkblue;">Open 8tracks</a></div>
 
       <div class="fluid-row" ng-repeat="mix in mixes | orderBy: 'state'">
         <div class="span12">
