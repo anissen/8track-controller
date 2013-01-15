@@ -19,6 +19,7 @@
   "content_scripts": [
     {
       "js": [
+        "scripts/jquery.min.js",
         "scripts/mixes.js"
       ],
       "matches": [

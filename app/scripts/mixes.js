@@ -6,64 +6,88 @@ function mixesCtrl($scope) {
     clickElement(mix.tabId, 'player_skip_button');
   };
 
-  $scope.togglePause = function(mix) {
-    // if mix.state === blah then clickElement(mix.tabId, 'player_skip_button');
+  $scope.toggleState = function(mix) {
+    if (mix.state === 'Play') {
+      clickElement(mix.tabId, 'player_play_button');
+      mix.state = 'Pause';
+    } else if (mix.state === 'Pause') {
+      clickElement(mix.tabId, 'player_pause_button');
+      mix.state = 'Play';
+    }
   };
 
   function updateFunc(tabId, script, callback) {
-    chrome.tabs.executeScript(tabId, {code: script}, function (data) {
-      $scope.$apply(function() {
-        callback((data ? data[0] : data));
+    chrome.tabs.executeScript(tabId, {file: 'scripts/jquery.min.js'}, function() {
+      chrome.tabs.executeScript(tabId, {code: script}, function (data) {
+        $scope.$apply(function() {
+          callback((data ? data[0] : data));
+        });
       });
     });
   }
 
   function updateTitle(mix) {
-    updateFunc(mix.tabId, 'document.getElementById("mix_name").innerHTML.trim()', function(mixTitle) {
+    updateFunc(mix.tabId, '$("#mix_name").text()', function(mixTitle) {
       mix.title = mixTitle;
     });
   }
 
   function updateSong(mix) {
-    var script = 'document.getElementById("now_playing").getElementsByClassName("title_artist")[0].getElementsByClassName("t")[0].innerHTML';
-    updateFunc(mix.tabId, script, function(song) {
+    updateFunc(mix.tabId, '$("#now_playing .title_artist .t").text()', function(song) {
       mix.song = song;
     });
   }
 
   function updateArtist(mix) {
-    var script = 'document.getElementById("now_playing").getElementsByClassName("title_artist")[0].getElementsByClassName("a")[0].innerHTML';
-    updateFunc(mix.tabId, script, function(artist) {
+    updateFunc(mix.tabId, '$("#now_playing .title_artist .a").text()', function(artist) {
       mix.artist = artist;
     });
   }
 
   function updateImage(mix) {
-    updateFunc(mix.tabId, 'document.getElementsByClassName("sq500")[0].src', function(imageSrc) {
+    updateFunc(mix.tabId, '$(".sq500").attr("src")', function(imageSrc) {
       mix.imageSrc = imageSrc;
     });
   }
 
+  function updateState(mix) {
+    updateFunc(mix.tabId, '$("#player_pause_button").css("display") === "block"', function(isPlaying) {
+      mix.state = (isPlaying ? 'Pause' : 'Play');
+    });
+  }
+
   function clickElement(tabId, elementId) {
-    updateFunc(tabId, 'document.getElementById("' + elementId + '").click()');
+    updateFunc(tabId, '$("#' + elementId + '").click()');
+  }
+
+  function createAndUpdateMix(tabId) {
+    updateFunc(tabId, '$("#play_area").length === 1', function(hasPlayArea) {
+      if (!hasPlayArea)
+        return;
+
+      var mix = createNewMix(tabId);
+      updateMix(mix);
+    });
   }
 
   function createNewMix(tabId) {
     var mix = {tabId: tabId};
-    $scope.$apply(function() {
-      $scope.mixes.push(mix);
-    });
+    $scope.mixes.push(mix); // this is inside a $scope.apply from updateFunc in createAndUpdateMix
     return mix;
   }
 
-  chrome.tabs.query({url: 'http://8tracks.com/*'}, function (tabs) {
+  function updateMix(mix) {
+    updateState(mix);
+    updateTitle(mix);
+    updateImage(mix);
+    updateSong(mix);
+    updateArtist(mix);
+  }
+
+  chrome.tabs.query({url: 'http://8tracks.com/*/*'}, function (tabs) {
     for (var i = 0; i < tabs.length; i++) {
       var tab = tabs[i];
-      var mix = createNewMix(tab.id);
-      updateTitle(mix);
-      updateImage(mix);
-      updateSong(mix);
-      updateArtist(mix);
+      createAndUpdateMix(tab.id);
     }
   });
 }
