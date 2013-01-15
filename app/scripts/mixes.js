@@ -14,6 +14,11 @@ function mixesCtrl($scope) {
     }
   };
 
+  $scope.goToTab = function(mix) {
+    chrome.tabs.update(mix.tabId, {active: true});
+    window.close();
+  };
+
   function updateFunc(tabId, script, callback) {
     chrome.tabs.executeScript(tabId, {file: 'scripts/jquery.min.js'}, function() {
       chrome.tabs.executeScript(tabId, {code: script}, function (data) {

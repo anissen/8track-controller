@@ -24,7 +24,7 @@
           <div class="media well well-small mix-{{mix.state | lowercase}}">
             <img class="media-object pull-left img-rounded" style="height: 128px; width: 128px;" ng-src="{{mix.imageSrc}}">
             <div class="media-body">
-              <h3 class="media-heading">{{mix.title}}</h3>
+              <h3 class="media-heading"><a href="#" ng-click="goToTab(mix)">{{mix.title}}</a></h3>
               <p ng-show="mix.song || mix.artist"><b>{{mix.song}}</b> by {{mix.artist}}</p>
               <button class="btn btn-primary" ng-click="toggleState(mix)">
                 <i class="icon-{{mix.state | lowercase}} icon-white"></i> {{mix.state}}
