@@ -4,3 +4,7 @@ body {
   width: 445px;
   overflow-x:hidden;
 }
+
+.mix-pause {
+  border: 1px solid #11adf1;
+}
