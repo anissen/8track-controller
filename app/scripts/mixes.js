@@ -9,10 +9,8 @@ function mixesCtrl($scope) {
   $scope.toggleState = function(mix) {
     if (mix.state === 'Play') {
       clickElement(mix.tabId, 'player_play_button');
-      mix.state = 'Pause';
     } else if (mix.state === 'Pause') {
       clickElement(mix.tabId, 'player_pause_button');
-      mix.state = 'Play';
     }
   };
 
@@ -58,6 +56,7 @@ function mixesCtrl($scope) {
 
   function clickElement(tabId, elementId) {
     updateFunc(tabId, '$("#' + elementId + '").click()');
+    window.close();
   }
 
   function createAndUpdateMix(tabId) {
