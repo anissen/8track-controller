@@ -15,8 +15,9 @@ function mixesCtrl($scope) {
   };
 
   $scope.goToTab = function(mix) {
-    chrome.tabs.update(mix.tabId, {active: true});
-    window.close();
+    chrome.tabs.update(mix.tabId, {active: true}, function() {
+      window.close();
+    });
   };
 
   function updateFunc(tabId, script, callback) {
@@ -60,8 +61,9 @@ function mixesCtrl($scope) {
   }
 
   function clickElement(tabId, elementId) {
-    updateFunc(tabId, '$("#' + elementId + '").click()');
-    window.close();
+    updateFunc(tabId, '$("#' + elementId + '").click()', function() {
+      window.close();
+    });
   }
 
   function createAndUpdateMix(tabId) {
