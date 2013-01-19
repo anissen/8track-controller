@@ -2,6 +2,16 @@
 
 _8tracks controller_ is a Google Chrome Extension that allows you to control your music on [8tracks](http://8tracks.com) without leaving your tab.
 
+![image](https://raw.github.com/anissen/8track-controller/master/screenshots/8tracks-controller-small.png)
+
+![image](https://raw.github.com/anissen/8track-controller/master/screenshots/8tracks-controller.png)
+
+## Features:
+* Lists all 8track mixes in your open tabs
+* Play, pause or skip track
+* Jump to mix tab
+* Filtering multiple mixes
+
 ## Release history
 * **Version 0.1.0** (19th january 2013)
 
