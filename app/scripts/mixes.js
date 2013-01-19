@@ -24,10 +24,6 @@ function mixesCtrl($scope) {
     });
   };
 
-  function trackEvent(eventId) {
-    _gaq.push(['_trackEvent', eventId, 'clicked']);
-  }
-
   function updateFunc(tabId, script, callback) {
     chrome.tabs.executeScript(tabId, {file: 'scripts/jquery.min.js'}, function() {
       chrome.tabs.executeScript(tabId, {code: script}, function (data) {
