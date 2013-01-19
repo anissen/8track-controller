@@ -3,22 +3,30 @@ function mixesCtrl($scope) {
   $scope.mixes = [];
 
   $scope.nextTrack = function(mix) {
+    trackEvent('next-track');
     clickElement(mix.tabId, 'player_skip_button');
   };
 
   $scope.toggleState = function(mix) {
     if (mix.state === 'Play') {
+      trackEvent('play');
       clickElement(mix.tabId, 'player_play_button');
     } else if (mix.state === 'Pause') {
+      trackEvent('pause');
       clickElement(mix.tabId, 'player_pause_button');
     }
   };
 
   $scope.goToTab = function(mix) {
+    trackEvent('go-to-tab');
     chrome.tabs.update(mix.tabId, {active: true}, function() {
       window.close();
     });
   };
+
+  function trackEvent(eventId) {
+    _gaq.push(['_trackEvent', eventId, 'clicked']);
+  }
 
   function updateFunc(tabId, script, callback) {
     chrome.tabs.executeScript(tabId, {file: 'scripts/jquery.min.js'}, function() {

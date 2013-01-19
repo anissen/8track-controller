@@ -12,6 +12,7 @@
     "default_icon": "img/icon-16.png",
     "default_popup": "index.html"
   },
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "permissions": [
     "tabs",
     "http://8tracks.com/*"
@@ -20,6 +21,7 @@
     {
       "js": [
         "scripts/jquery.min.js",
+        "scripts/analytics.js",
         "scripts/mixes.js"
       ],
       "matches": [
