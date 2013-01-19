@@ -8,9 +8,12 @@ _8tracks controller_ is a Google Chrome Extension that allows you to control you
   Initial version added to Google Web Store
 
 ## Possible future features
+* Bug fix: Maintain mix ordering on play/pause
 * Volume control
 * Track progress status
 * Number of remaining track skips (if possible)
+* Hotkeys (a Chrome 25+ feature)
+* Dark theme
 
 ## License
 Copyright (c) 2013 Anders Nissen
